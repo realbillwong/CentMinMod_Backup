@@ -815,7 +815,7 @@ if [ -f "/usr/bin/gdrive" ]; then
         local_disk_backup
 else
         echo " "
-        wget "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download" -O /usr/bin/gdrive
+        curl -s https://api.github.com/repos/prasmussen/gdrive/releases/latest | jq '.assets[] | select(.name|match("linux_386.tar.gz$")) | .browser_download_url' | xargs wget -qO- - | tar xvz -C /usr/bin
         chmod 777 /usr/bin/gdrive
         echo " "
         local_disk_backup
